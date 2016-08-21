@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">dBizi</string>
+
+    <string name="estacion">Estación</string>
+    <string name="bicicletas_libres">Bicis</string>
+    <string name="bases_libres">Bases</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+</resources>

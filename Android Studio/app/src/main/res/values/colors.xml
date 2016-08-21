@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FFC107</color>
+
+
+    <!-- Status colors -->
+    <color name="availabilityVeryHigh">#2E7D32</color>
+    <color name="availabilityHigh">#8BC34A</color>
+    <color name="availabilityMedium">#FFD600</color>
+    <color name="availabilityLow">#FF6D00</color>
+    <color name="availabilityNone">#d50000</color>
+    <color name="availabilityDisabled">#9E9E9E</color>
+
+    <color name="navigation_drawer_background">#616161</color>
+
+    <color name="background_stroke">#455A64</color>
+    <color name="foreground_stroke">#00796B</color>
+</resources>
