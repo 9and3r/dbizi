@@ -13,4 +13,7 @@ public interface EstazioProvider extends DBiziDataListener{
 
     ArrayList<Estazioa> getEstazioak();
 
+    Estazioa getSelected();
+
+    void setSelected(Estazioa estazioa);
 }

@@ -16,5 +16,5 @@
     <color name="navigation_drawer_background">#616161</color>
 
     <color name="background_stroke">#455A64</color>
-    <color name="foreground_stroke">#00796B</color>
+    <color name="foreground_stroke">#EEEEEE</color>
 </resources>

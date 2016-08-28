@@ -102,8 +102,23 @@ public class MainActivity extends AppCompatActivity implements EstazioProvider{
     }
 
     @Override
-    public void onEstazioakLoaded(ArrayList<Estazioa> estazioak) {
+    public Estazioa getSelected() {
+        return dataProvider.getSelected();
+    }
 
+    @Override
+    public void setSelected(Estazioa estazioa) {
+        dataProvider.setSelected(estazioa);
+    }
+
+    @Override
+    public void onEstazioakLoaded(ArrayList<Estazioa> estazioak) {
+        dataProvider.onEstazioakLoaded(estazioak);
+    }
+
+    @Override
+    public void onEstazioaSelected(Estazioa previous, Estazioa selected) {
+        dataProvider.onEstazioaSelected(previous, selected);
     }
 
 

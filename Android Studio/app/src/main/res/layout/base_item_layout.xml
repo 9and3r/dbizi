@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/base_item_id">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:id="@+id/linear_layout"
+        android:layout_toRightOf="@+id/textViewBasesLibres"
+        android:layout_toLeftOf="@+id/textViewBicicletasLibres">
 
         <TextView
             android:layout_width="wrap_content"
@@ -13,6 +21,8 @@
             android:text="Large Text"
             android:id="@+id/textViewNombre" />
 
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,68 +30,27 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/textViewDireccion" />
+    </LinearLayout>
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:stretchColumns="1">
+    <com.aorbegozo005.dbizi.CircularValueView
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewBasesLibres"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/linear_layout"
+        android:layout_alignBottom="@+id/linear_layout" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/bicicletas_libres" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/bases_libres" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textViewBicicletasLibres"  />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:layout_gravity="right"
-                    android:id="@+id/textViewBasesLibres" />
-
-            </TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-        </TableLayout>
+    <com.aorbegozo005.dbizi.CircularValueView
+        android:layout_width="56dp"
+        android:layout_height="48dp"
+        android:id="@+id/textViewBicicletasLibres"
+        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/linear_layout"
+        android:layout_alignBottom="@+id/linear_layout" />
 
 
-</LinearLayout>
+
+</RelativeLayout>

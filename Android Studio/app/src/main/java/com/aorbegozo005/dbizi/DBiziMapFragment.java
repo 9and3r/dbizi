@@ -60,7 +60,9 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
 
 
         bottomSheet = v.findViewById(R.id.bottom_sheet);
+        estazioItemHolder = new EstazioItemHolder(bottomSheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setPeekHeight(300);
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -78,11 +80,6 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
                 if (map != null){
                     map.setPadding(0, 0, 0, (int) (slideOffset * bottomSheet.getHeight()));
                 }
-                bottomSheet.setBackgroundColor(Color.argb((int)(slideOffset * 220), 255, 255, 255));
-                if (map != null && currentEstazioa != null){
-                    map.moveCamera(CameraUpdateFactory.newLatLng(currentEstazioa.getLocation()));
-                }
-
             }
         });
 
@@ -114,33 +111,7 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
     public boolean onMarkerClick(Marker marker) {
         currentEstazioa = (Estazioa) marker.getTag();
         marker.showInfoWindow();
-        estazioItemHolder.setEstazioa(currentEstazioa);
-        panoramaContainer.setAlpha(0);
-        streetViewPanorama.setOnStreetViewPanoramaChangeListener(new StreetViewPanorama.OnStreetViewPanoramaChangeListener() {
-            @Override
-            public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
-                if (streetViewPanoramaLocation != null){
-                    Location location1 = new Location("FAKE_GPS");
-                    location1.setLatitude(currentEstazioa.latitude);
-                    location1.setLongitude(currentEstazioa.longitude);
-
-                    Location location2 = new Location("FAKE_GPS");
-                    location2.setLatitude(streetViewPanoramaLocation.position.latitude);
-                    location2.setLongitude(streetViewPanoramaLocation.position.longitude);
-
-                    StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder()
-                            .zoom(streetViewPanorama.getPanoramaCamera().zoom)
-                            .tilt(0)
-                            .bearing(location2.bearingTo(location1))
-                            .build();
-
-                    streetViewPanorama.animateTo(camera, 0);
-                    panoramaContainer.setAlpha(1);
-                }
-            }
-        });
-        streetViewPanorama.setPosition(currentEstazioa.getLocation());
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        provider.setSelected(currentEstazioa);
 
         return true;
     }
@@ -152,7 +123,7 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                provider.setSelected(null);
             }
         });
         loadBidegorris();
@@ -185,7 +156,7 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line).append("\n");
         }
@@ -216,6 +187,41 @@ public class DBiziMapFragment extends BaseListenerFragment implements OnMapReady
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(), paddingPX);
                 map.animateCamera(cameraUpdate);
             }
+        }
+    }
+
+    @Override
+    public void onEstazioaSelected(Estazioa previous, Estazioa selected) {
+        if (selected != null){
+            estazioItemHolder.setEstazioa(currentEstazioa);
+            panoramaContainer.setAlpha(0);
+            streetViewPanorama.setOnStreetViewPanoramaChangeListener(new StreetViewPanorama.OnStreetViewPanoramaChangeListener() {
+                @Override
+                public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
+                    if (streetViewPanoramaLocation != null){
+                        Location location1 = new Location("FAKE_GPS");
+                        location1.setLatitude(currentEstazioa.latitude);
+                        location1.setLongitude(currentEstazioa.longitude);
+
+                        Location location2 = new Location("FAKE_GPS");
+                        location2.setLatitude(streetViewPanoramaLocation.position.latitude);
+                        location2.setLongitude(streetViewPanoramaLocation.position.longitude);
+
+                        StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder()
+                                .zoom(streetViewPanorama.getPanoramaCamera().zoom)
+                                .tilt(0)
+                                .bearing(location2.bearingTo(location1))
+                                .build();
+
+                        streetViewPanorama.animateTo(camera, 0);
+                        panoramaContainer.setAlpha(1);
+                    }
+                }
+            });
+            streetViewPanorama.setPosition(currentEstazioa.getLocation());
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }else{
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
     }
 

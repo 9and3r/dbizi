@@ -28,10 +28,14 @@ public class DBiziDataProvider implements EstazioProvider, Callback {
     private ArrayList<DBiziDataListener> listeners;
     private ArrayList<Estazioa> estazioak;
 
+    private Estazioa selected;
+
     private OkHttpClient client;
     private Gson gson;
     private Handler handler;
     private Call call;
+
+
 
     public DBiziDataProvider(){
         estazioak = new ArrayList<>();
@@ -121,10 +125,28 @@ public class DBiziDataProvider implements EstazioProvider, Callback {
     }
 
     @Override
+    public Estazioa getSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(Estazioa estazioBerria) {
+        onEstazioaSelected(selected, estazioBerria);
+        selected = estazioBerria;
+    }
+
+    @Override
     public void onEstazioakLoaded(ArrayList<Estazioa> pEstazioak) {
         estazioak = pEstazioak;
         for (int i=0; i<listeners.size(); i++){
             listeners.get(i).onEstazioakLoaded(estazioak);
+        }
+    }
+
+    @Override
+    public void onEstazioaSelected(Estazioa previous, Estazioa pSelected) {
+        for (int i=0; i<listeners.size(); i++){
+            listeners.get(i).onEstazioaSelected(selected, pSelected);
         }
     }
 }

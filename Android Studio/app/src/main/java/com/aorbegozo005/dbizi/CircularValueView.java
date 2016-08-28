@@ -20,6 +20,7 @@ import android.widget.TextView;
  */
 public class CircularValueView extends View implements ValueAnimator.AnimatorUpdateListener {
 
+    private final static int ANIMATION_DURATION = 700;
 
     private int value;
     private int maxValue;
@@ -188,7 +189,7 @@ public class CircularValueView extends View implements ValueAnimator.AnimatorUpd
         }
 
         valueAnimator.addUpdateListener(this);
-        valueAnimator.setDuration(1000);
+        valueAnimator.setDuration(ANIMATION_DURATION);
         valueAnimator.start();
     }
 

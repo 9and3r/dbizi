@@ -35,5 +35,11 @@ public class EstazioListFragment extends BaseListenerFragment {
         adapter.setEstazioak(estazioak);
     }
 
+    @Override
+    public void onEstazioaSelected(Estazioa previous, Estazioa selected) {
+
+    }
+
+
 
 }

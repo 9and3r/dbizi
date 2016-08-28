@@ -9,4 +9,6 @@ public interface DBiziDataListener {
 
     void onEstazioakLoaded(ArrayList<Estazioa> estazioak);
 
+    void onEstazioaSelected(Estazioa previous, Estazioa selected);
+
 }
